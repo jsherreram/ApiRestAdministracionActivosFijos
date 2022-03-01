@@ -1,0 +1,37 @@
+## YAML Template.
+version: '3.8'
+services:
+ ##########################################################################     
+ #mysql db
+ ##########################################################################  
+  mysql:
+    container_name: mysql-db
+    image: 'mysql:latest'
+    restart: always
+    volumes:
+      - './mysql_data:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: sgaf
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin      
+    ports:
+      - '33061:3306'
+
+ ##########################################################################     
+ #activo fijo service
+ ##########################################################################  
+  fixed-asset:
+    container_name: bd-activo-fijo
+    image: fixedassetmanagement/microservice-docker-activofijo:1.0
+    environment:
+      - JAVA_OPTS=
+         -Xms256M 
+         -Xmx256M
+    depends_on:
+      - mysql
+    ports:
+      - 9090:9090
+#volumes:
+#  './mysql_data': {}
+#  JAVA_OPTS: {}
