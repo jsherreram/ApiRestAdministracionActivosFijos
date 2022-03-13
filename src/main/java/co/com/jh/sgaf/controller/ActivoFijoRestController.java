@@ -106,13 +106,13 @@ public class ActivoFijoRestController {
         @ApiResponse(code = 400, message = "Solicitud incorrecta. El servidor no puede o no procesará la solicitud debido a algo que se percibe como un error del cliente (ej: sintaxis de solicitud mal formada, marco de mensaje de solicitud no válido o enrutamiento de solicitud engañoso"),
         @ApiResponse(code = 404, message = "No encontrada. El servidor no puede encontrar el recurso solicitado. también puede significar que el endpoint es válido pero el recurso en sí no existe."),
         @ApiResponse(code = 500, message = "Error Interno del Servidor. Error genérico, cuando se ha dado una condición no esperada y no se puede concretar el mensaje.")})
-    @GetMapping(value = "/tipo")
+    @GetMapping(value = "/byTipo")
     public ResponseEntity<List<ActivoFijo>> findAllActivosFijosByTipo(@RequestParam String tipo) throws BusinessRuleException {
 
         ResponseEntity<List<ActivoFijo>> responseEntity;
         
         if (tipo == null || tipo.isEmpty()) {
-            BusinessRuleException businessRuleException = new BusinessRuleException("Error-1025", "Error de validación, atributo tipo activo fijo no existe", HttpStatus.PRECONDITION_FAILED);
+            BusinessRuleException businessRuleException = new BusinessRuleException("Error-1025", "Error de validación, atributo tipo activo fijo está vacío", HttpStatus.PRECONDITION_FAILED);
             throw businessRuleException;
         } else {
             List<ActivoFijo> activosFijos = activoFijoService.findAllByTipo(tipo);
@@ -140,13 +140,13 @@ public class ActivoFijoRestController {
         @ApiResponse(code = 400, message = "Solicitud incorrecta. El servidor no puede o no procesará la solicitud debido a algo que se percibe como un error del cliente (ej: sintaxis de solicitud mal formada, marco de mensaje de solicitud no válido o enrutamiento de solicitud engañoso"),
         @ApiResponse(code = 404, message = "No encontrada. El servidor no puede encontrar el recurso solicitado. también puede significar que el endpoint es válido pero el recurso en sí no existe."),
         @ApiResponse(code = 500, message = "Error Interno del Servidor. Error genérico, cuando se ha dado una condición no esperada y no se puede concretar el mensaje.")})
-    @GetMapping(value = "/fechaCompra")
+    @GetMapping(value = "/byFechaCompra")
     public ResponseEntity<List<ActivoFijo>> findAllActivosFijosByFechaCompra(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaCompra) throws BusinessRuleException {
 
         ResponseEntity<List<ActivoFijo>> responseEntity;
         
         if (fechaCompra == null) {
-            BusinessRuleException businessRuleException = new BusinessRuleException("Error-1025", "Error de validación, atributo fecha compra activo fijo no existe", HttpStatus.PRECONDITION_FAILED);
+            BusinessRuleException businessRuleException = new BusinessRuleException("Error-1025", "Error de validación, atributo fecha compra activo fijo está vacía", HttpStatus.PRECONDITION_FAILED);
             throw businessRuleException;
         } else {
             List<ActivoFijo> activosFijos = activoFijoService.findAllByFechaCompra(fechaCompra);
@@ -174,13 +174,13 @@ public class ActivoFijoRestController {
         @ApiResponse(code = 400, message = "Solicitud incorrecta. El servidor no puede o no procesará la solicitud debido a algo que se percibe como un error del cliente (ej: sintaxis de solicitud mal formada, marco de mensaje de solicitud no válido o enrutamiento de solicitud engañoso"),
         @ApiResponse(code = 404, message = "No encontrada. El servidor no puede encontrar el recurso solicitado. también puede significar que el endpoint es válido pero el recurso en sí no existe."),
         @ApiResponse(code = 500, message = "Error Interno del Servidor. Error genérico, cuando se ha dado una condición no esperada y no se puede concretar el mensaje.")})
-    @GetMapping(value = "/serial")
+    @GetMapping(value = "/bySerial")
     public ResponseEntity<ActivoFijo> findActivoFijoBySerial(@RequestParam String serial) throws BusinessRuleException {
 
         ResponseEntity<ActivoFijo> responseEntity;
         
         if (serial == null || serial.isEmpty()) {
-            BusinessRuleException businessRuleException = new BusinessRuleException("Error-1025", "Error de validación, atributo serial activo fijo no existe", HttpStatus.PRECONDITION_FAILED);
+            BusinessRuleException businessRuleException = new BusinessRuleException("Error-1025", "Error de validación, atributo serial activo fijo está vacío", HttpStatus.PRECONDITION_FAILED);
             throw businessRuleException;
         } else {
             ActivoFijo activoFijo = activoFijoService.findBySerial(serial);
